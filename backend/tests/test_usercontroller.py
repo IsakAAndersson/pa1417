@@ -69,7 +69,7 @@ def test_get_user_multiple_users(user_controller, mock_dao, capsys):
     
     # Assert
     captured = capsys.readouterr()
-    assert result == test_users[0]  # Should return first user
+    assert result == test_users[0]  
     assert "Error: more than one user found with mail test@example.com" in captured.out
 
 def test_get_user_missing_at_symbol(user_controller):
@@ -77,4 +77,3 @@ def test_get_user_missing_at_symbol(user_controller):
     # Act & Assert
     with pytest.raises(ValueError, match="Error: invalid email address"):
         user_controller.get_user_by_email("testexample.com")
-
