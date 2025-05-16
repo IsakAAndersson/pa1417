@@ -1,28 +1,4 @@
 from unittest.mock import patch
-
-# Pre-patch getValidator before any imports occur
-mock_validator = patch('src.util.validators.getValidator', return_value={
-    "$jsonSchema": {
-        "bsonType": "object",
-        "required": ["name", "type"],
-        "properties": {
-            "name": {
-                "bsonType": "string",
-                "description": "must be a string and is required"
-            },
-            "type": {
-                "bsonType": "string",
-                "description": "must be a string and is required"
-            },
-            "active": {
-                "bsonType": "bool",
-                "description": "must be a boolean"
-            }
-        }
-    }
-})
-mock_validator.start()
-
 import pytest
 import mongomock
 import pymongo
@@ -31,6 +7,38 @@ from unittest.mock import MagicMock
 import os
 from bson import ObjectId
 from src.util.dao import DAO
+
+# Pre-patch getValidator before any imports occur
+new_validator = {
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["firstName", "lastName", "email"],
+        "properties": {
+            "firstName": {
+                "bsonType": "string",
+                "description": "Required"
+            },
+            "lastName": {
+                "bsonType": "string",
+                "description": "Required"
+            },
+            "email": {
+                "bsonType": "string",
+                "description": "Required"
+                "uniqueItems": True
+            },
+            "tasks": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "objectId"
+                },
+                "description": "Optional"
+            }
+        }
+    }
+        
+
+}
 
 
 # Make sure to stop the patch when tests are done

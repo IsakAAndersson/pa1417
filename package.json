@@ -1,0 +1,12 @@
+{
+  "name": "pa1417",
+  "version": "1.0.0",
+  "description": "[![GitHub](https://img.shields.io/github/license/JulianFrattini/edutask)](./LICENSE)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
