@@ -1,0 +1,15 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": ["firstName", "lastName", "email"],
+    "properties": {
+      "firstName": {"bsonType": "string"},
+      "lastName": {"bsonType": "string"},
+      "email": {"bsonType": "string"},
+      "tasks": {
+        "bsonType": "array",
+        "items": {"bsonType": "objectId"}
+      }
+    }
+  }
+}

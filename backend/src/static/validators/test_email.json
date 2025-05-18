@@ -1,0 +1,14 @@
+{
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["email"],
+        "properties": {
+            "email": {
+                "bsonType": "string",
+                "description": "the email address of a user must be determined",
+                "uniqueItems": true
+
+            }
+        }
+    }
+}
