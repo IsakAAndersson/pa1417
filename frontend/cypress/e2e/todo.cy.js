@@ -123,6 +123,33 @@ describe("Todo Item Manipulation (Requirement 8)", () => {
             });
     });
 
+    it("should check status of todo item after toggling (R8UC2 Alternative)", () => {
+        // Get the first todo item
+        cy.get(".todo-list .todo-item").first().as("firstTodo");
+
+        // Check initial state
+        cy.get("@firstTodo")
+            .find(".checker")
+            .then(($checker) => {
+                const isInitiallyChecked = $checker.hasClass("checked");
+
+                // Hämta todo-id från elementet (t.ex. data-id eller liknande)
+                const todoId = $checker.closest(".todo-item").attr("data-id");
+
+                // Toggle the status
+                cy.get("@firstTodo").find(".checker").click();
+
+                // Kontrollera att status har ändrats i UI
+                cy.get("@firstTodo").find(".checker").should(isInitiallyChecked ? "not.have.class" : "have.class", "checked");
+
+                // Kontrollera att status har ändrats i backend via API
+                cy.request("GET", `http://localhost:5000/todos/${todoId}`).then((response) => {
+                    // Byt ut 'done' mot rätt fältnamn om det heter något annat
+                    expect(response.body.done).to.eq(!isInitiallyChecked);
+                });
+            });
+    });
+
     // R8UC3: Delete an existing todo item
     it("should delete a todo item (R8UC3)", () => {
         // Store the todo items before deletion

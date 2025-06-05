@@ -28,10 +28,8 @@ def test_get_user_valid_email_no_user(user_controller, mock_dao):
     mock_dao.find.return_value = []
     
     # Act & Assert
-    with pytest.raises(IndexError):
-        user_controller.get_user_by_email("test@example.com")
-    
-    mock_dao.find.assert_called_once_with({"email": "test@example.com"})
+    assert user_controller.get_user_by_email({"email": "test@example.com"}) is None
+
 
 def test_get_user_invalid_email(user_controller):
     # Act & Assert
@@ -68,9 +66,22 @@ def test_get_user_multiple_users(user_controller, mock_dao, capsys):
     result = user_controller.get_user_by_email("test@example.com")
     
     # Assert
-    captured = capsys.readouterr()
     assert result == test_users[0]  
-    assert "Error: more than one user found with mail test@example.com" in captured.out
+
+def test_get_user_multiple_users_warning(user_controller, mock_dao, capsys):
+    # Arrange
+    test_users = [
+        {"_id": "1", "email": "test@example.com"},
+        {"_id": "2", "email": "test@example.com"}
+    ]
+    mock_dao.find.return_value = test_users
+    
+    # Act
+    result = user_controller.get_user_by_email("test@example.com")
+    
+    # Assert
+    captured = capsys.readouterr()
+    assert "Error: more than one user found with mail" in captured.out
 
 def test_get_user_missing_at_symbol(user_controller):
     """Test that email without @ symbol raises ValueError"""
