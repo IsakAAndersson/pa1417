@@ -1,4 +1,4 @@
-#!/home/w1ee/pa1417_systemverifiering/pa1417/venv/bin/python3
+#!/home/w1ee/source/systemverifiering_pa1417/pa1417/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
