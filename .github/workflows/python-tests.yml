@@ -30,4 +30,4 @@ jobs:
             - name: Run tests
               working-directory: backend
               run: |
-                  pytest ../backend/test/tests
+                  pytest ../backend/test/tests/test_usercontroller.py

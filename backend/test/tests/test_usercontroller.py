@@ -26,9 +26,10 @@ def test_get_user_valid_email_single_user(user_controller, mock_dao):
 def test_get_user_valid_email_no_user(user_controller, mock_dao):
     # Arrange
     mock_dao.find.return_value = []
-    
-    # Act & Assert
-    assert user_controller.get_user_by_email({"email": "test@example.com"}) is None
+    # Act
+    result = user_controller.get_user_by_email("test@example.com")
+    # Assert
+    assert result is None
 
 
 def test_get_user_invalid_email(user_controller):
